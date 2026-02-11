@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>💘 Invitación Especial</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      text-align: center;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      position: relative;
+    }
+
+    #heartContainer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      max-width: 360px;
+      margin: auto;
+      position: relative;
+      z-index: 10;
+      padding: 20px 20px 10px 20px;
+    }
+
+    .content {
+      position: relative;
+      z-index: 11;
+      background: #ff758c;
+      border-radius: 20px;
+      padding: 10px 10px 10px 10px;
+    }
+
+    h1, p {
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .buttons {
+      position: relative;
+      height: 120px;
+      z-index: 11;
+      margin-top: 10px;
+    }
+
+    button {
+      background: #fff;
+      color: #ff4d6d;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: transform 0.3s;
+      position: absolute;
+      z-index: 11;
+    }
+
+    #siBtn {
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+    }
+
+    #noBtn {
+      background: #ffe3ea;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 0;
+    }
+
+    /* Contenedor respuesta */
+    #respuesta {
+      display: none;
+      margin: 0;
+      padding: 0;
+      line-height: 1.2;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Texto dentro de respuesta */
+    #respuesta span {
+      display: block;
+      margin: 0 0 15px 0; /* espacio debajo del texto */
+      padding: 0;
+      position: static;
+      font-size: 1.4em;
+      color: #fff;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    /* Imagen con espacio arriba por defecto */
+    #imagenFinal {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 auto 0 auto;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      user-select: none;
+      pointer-events: none;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="heartContainer"></div>
+
+  <div class="card">
+    <div class="content">
+      <h1 id="titulo">💖 ¿Quieres ser mi 14 de febrero?</h1>
+      <p id="parrafo">
+        En este dia tan espcial quisiera compartirlo con la persona que más amo y esa obviamente eres tu mi amorr,¿aceptas?
+      </p>
+
+      <div class="buttons">
+        <button id="noBtn" onclick="negar()">No,no te amo</button>
+        <button id="siBtn" onclick="aceptar()">Shi</button>
+      </div>
+
+      <div id="respuesta">
+        <span>Sabía que dirías que sí, mi niña y como te costaba,nooo? 💘</span>
+        <img id="imagenFinal" src="https://video-atl3-3.xx.fbcdn.net/v/t69.46293-2/631988167_873925452154806_9177757493311090625_n.?stp=dst-jpg_s960x960_tt6&_nc_cat=107&ccb=1-7&_nc_sid=942482&_nc_ohc=ctseCo3ROsYQ7kNvwH0xOCW&_nc_oc=AdkEu7QdxxeKERs5jjzv-5LbrLZwZ4-JwRaDzqiZ9z6kYv7mE6ORzf7Wfaq8MdyDhsy5vqFXivpzBpSQUJY3bbCU&_nc_zt=28&_nc_ht=video-atl3-3.xx&_nc_gid=ZUk7chJCHpe0PvYQYko0Qw&oh=03_Q7cD4gE-S7SItU6TyJ2uB_e4NNpgAqkDP0JDBFV9dwPbLxKW7g&oe=698DB0C4" alt="Imagen especial" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const heartContainer = document.getElementById("heartContainer");
+    const heartChar = "💘";
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = heartChar;
+      heart.style.left = Math.random() * 100 + "vw";
+      const size = 16 + Math.random() * 20;
+      heart.style.fontSize = size + "px";
+      const duration = 6000 + Math.random() * 6000;
+      heart.style.animationDuration = duration + "ms";
+      heart.style.animationDelay = Math.random() * 6000 + "ms";
+      heartContainer.appendChild(heart);
+      setTimeout(() => { heart.remove(); }, duration + 6000);
+    }
+    setInterval(createHeart, 300);
+
+    let escala = 1;
+    let indexTexto = 0;
+    let clickNo = 0;
+    const maxClicksNo = 7;
+
+    const textosNo = [
+      "No ,okkkkkkk",
+      "¿Segura? Yo cuento mejores chistes que ese tal mathew",
+      "Piénsalo bien, anda deja de cagar hielo y di que sii",
+      "Okkkk, ya no rogare más es la ultima amor",
+      "que mujerrr que le cuesta decir que si",
+      "No te hagas yo sé que tu quieres amor",
+      "Ok ahi se ve amorcito",
+      "Última chance 😏",
+    ];
+
+    function negar() {
+      const noBtn = document.getElementById("noBtn");
+      clickNo++;
+      if (clickNo >= maxClicksNo) { aceptar(); return; }
+      escala += 0.25;
+      noBtn.style.transform = `scale(${escala})`;
+      const card = document.querySelector(".card");
+      const cardRect = card.getBoundingClientRect();
+      const maxX = cardRect.width - noBtn.offsetWidth;
+      const maxY = cardRect.height - noBtn.offsetHeight - 50;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+      indexTexto = (indexTexto + 1) % textosNo.length;
+      noBtn.textContent = textosNo[indexTexto];
+    }
+
+    function aceptar() {
+      document.getElementById("respuesta").style.display = "block";
+      document.getElementById("noBtn").style.display = "none";
+      document.getElementById("siBtn").style.display = "none";
+      document.getElementById("titulo").textContent = "💖 ¡Aceptaste!";
+      document.getElementById("parrafo").textContent = "";
+    }
+  </script>
+</body>
+</html>
